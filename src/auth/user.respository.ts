@@ -6,7 +6,6 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {

@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BaseEntity,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { TaskStatus } from './task-status.enum';
-
+import { User } from 'src/auth/user.entity';
 @Entity('tasks')
 export class Task extends BaseEntity {
   @PrimaryGeneratedColumn({
@@ -33,4 +35,13 @@ export class Task extends BaseEntity {
     default: TaskStatus.OPEN
   })
   status: TaskStatus;
+
+  @ManyToOne(type => User, User => User.tasks, { eager: false })
+  @JoinColumn({name:'userId'})
+  user: User;
+
+  @Column('int', {
+    name: 'userId'
+  })
+  userId: number;
 }
